@@ -1,149 +1,135 @@
 <ion-content [fullscreen]="true" class="ion-margin">
   <!-- MultiStep Form -->
-
-      <div id="msform">
-          <!-- progressbar -->
-          <ul id="progressbar" style="display: flex;">
-              <li [class.active]="introductioncard==true"><span class="steptxt">Instructions</span></li>
-              <li [class.active]="personalcard==true"><span class="steptxt">Personal Details</span></li>
-              <li [class.active]="educationcard==true"><span class="steptxt">Education/Experience</span></li>
-              <li [class.active]="skillcard==true"><span class="steptxt">Skill set</span></li>
-              <li [class.active]="extracard==true"><span class="steptxt">Extra Info</span></li>
-          </ul>
-          <div [ngSwitch]="true" style="width: 100%;height: 85%;" >
-            <!-- fieldsets -->
-            <fieldset *ngSwitchCase="currentcard==1">
-              <div style="font-size: 12px;font-weight: 400;text-align: justify;;">
-                <div style="margin-bottom: 16px;">Step 1 - Click start to begin the video resume</div>
-                <div style="margin-bottom: 16px;">Step 2 - Click start button to tell about yourself</div>
-                <div style="margin-bottom: 16px;font-style: italic;">(Maximum recording length: 30 seconds)</div>
-              </div>
-              <div style="height: 80%;border: 1px solid;border-radius: 8px;text-align: justify;padding: 20px 16px;">
-                <div style="margin-bottom: 16px;">
+  <div id="msform">
+    <!-- progressbar -->
+    <ul id="progressbar" style="display: flex;">
+      <li [class.active]="currentcard === 1"><span class="steptxt">Instructions</span></li>
+      <li [class.active]="currentcard === 2"><span class="steptxt">Personal Details</span></li>
+      <li [class.active]="currentcard === 3"><span class="steptxt">Education/Experience</span></li>
+      <li [class.active]="currentcard === 4"><span class="steptxt">Skill set</span></li>
+      <li [class.active]="currentcard === 5"><span class="steptxt">Extra Info</span></li>
+    </ul>
+    <div [ngSwitch]="currentcard" style="width: 100%; height: 85%;">
+      <!-- fieldsets -->
+      <fieldset *ngSwitchCase="1">
+        <div style="font-size: 12px; font-weight: 400; text-align: justify;">
+          <div style="margin-bottom: 16px;">Step 1 - Click start to begin the video resume</div>
+          <div style="margin-bottom: 16px;">Step 2 - Click start button to tell about yourself</div>
+          <div style="margin-bottom: 16px; font-style: italic;">(Maximum recording length: 30 seconds)</div>
+        </div>
+        <div style="height: 80%; border: 1px solid; border-radius: 8px; text-align: justify; padding: 20px 16px;">
+          <div style="margin-bottom: 16px;">
                   <div style="font-size: 12px;font-weight: 700;">Personal details - full name, city, country, etc.</div>
                   <div style="font-size: 12px;font-weight: 400;">eg: I am John Doe, I live in India</div>
                 </div>
-                
+               
                 <div style="margin-bottom: 16px;">
                   <div style="font-size: 12px;font-weight: 700;">Education - Start with your highest qualification, Institute & location, Passing year, etc.</div>
                   <div style="font-size: 12px;font-weight: 400;">eg: I have completed my Bachelors from Delhi</div>
                 </div>
-                
+               
                 <div style="margin-bottom: 16px;">
                   <div style="font-size: 12px;font-weight: 700;">Experience - Total experience, Latest company, Designation, Tenure, etc.</div>
                   <div style="font-size: 12px;font-weight: 400;">eg: I completed my Bachelors from DU, India and currently working in a startup with a experience of 5 years.</div>
                 </div>
-                
+               
                 <div style="margin-bottom: 16px;">
                   <div style="font-size: 12px;font-weight: 700;">Skills - Lists the skills you have (technical or non-technical)</div>
                   <div style="font-size: 12px;font-weight: 400;">eg: I know HTML+ CSS, Python and very good with the communication and time management.</div>
                 </div>
-                
+               
                 <div style="margin-bottom: 16px;">
                   <div style="font-size: 12px;font-weight: 700;">Extra Information - This is optional you can talk about anything which is relevant to your field</div>
                   <div style="font-size: 12px;font-weight: 400;">eg: I love cooking and I like to try different methods each time to enhance my cooking skill. Which also helps me to keep myself motivated.</div>
                 </div>
-                
-              </div>
-              <div class="actionbtns">
-                <!-- <input type="button" name="next" class="next action-button" value="Next" (click)="nextClick('personal')"/> -->
-                <ion-button mode="md" class="btn btncolor" (click)="nextClick('personal')">Next</ion-button>
-              </div>
-            </fieldset>
-
-            <fieldset *ngSwitchCase="currentcard==2">
-              <div style="height: 80%;border: 1px solid;border-radius: 8px;">
-                <!-- <h2 class="fs-title">Personal Details</h2>
-                <h3 class="fs-subtitle">Your presence on the social network</h3> -->
-                <div class="video_container">
-                  <ion-button mode="md" (click)="recordPersonalVideo()">Record Video</ion-button>
-                  <div style="height: 85%;margin: 8px;">
-                    <!-- Preview Video -->
-                    <video id="personal-recorded" class="vid_ele" autoplay controls></video>
-                  </div>
-                </div>
-                <div class="action_container">
-                  <ion-icon src="assets/icon/play.svg" (click)="playVideo()"></ion-icon>
-                  <ion-icon src="assets/icon/Stop.svg" (click)="stopVideo()"></ion-icon>
-                </div>
-              </div>
-              <div class="actionbtns">
-                <ion-button mode="md" fill="outline" class="btn" color="primary" (click)="prevClick('introduction')">Back</ion-button>
-                <ion-button mode="md" class="btn btncolor" (click)="nextClick('education')">Next</ion-button>
-              </div>
-                
-            </fieldset>
-            <fieldset *ngSwitchCase="currentcard==3">
-              <div style="height: 80%;border: 1px solid;border-radius: 8px;">
-                <!-- <h2 class="fs-title">Education/Experience</h2>
-                <h3 class="fs-subtitle">Your presence on the social network</h3> -->
-                <div class="video_container">
-                  <ion-button mode="md" (click)="recordEducationVideo()">Record Video</ion-button>
-                  <div style="height: 85%;margin: 8px;">
-                    <!-- Preview Video -->
-                    <video id="personal-recorded" class="vid_ele" autoplay controls></video>
-                  </div>
-                </div>
-                <div class="action_container">
-                  <ion-icon src="assets/icon/play.svg" (click)="playVideo()"></ion-icon>
-                  <ion-icon src="assets/icon/Stop.svg" (click)="stopVideo()"></ion-icon>
-                </div>
-              </div>
-              <div class="actionbtns">
-                <ion-button mode="md" fill="outline" class="btn" color="primary" (click)="prevClick('personal')">Back</ion-button>
-                <ion-button mode="md" class="btn btncolor" (click)="nextClick('skill')">Next</ion-button>
-                
-              </div>
-                
-            </fieldset>
-            <fieldset *ngSwitchCase="currentcard==4">
-              <div style="height: 80%;border: 1px solid;border-radius: 8px;">
-                <!-- <h2 class="fs-title">Skill set</h2>
-                <h3 class="fs-subtitle">Your presence on the social network</h3> -->
-                <div class="video_container">
-                  <ion-button mode="md" (click)="recordSkillVideo()">Record Video</ion-button>
-                  <div style="height: 85%;margin: 8px;">
-                    <!-- Preview Video -->
-                    <video id="personal-recorded" class="vid_ele" autoplay controls></video>
-                  </div>
-                </div>
-                <div class="action_container">
-                  <ion-icon src="assets/icon/play.svg" (click)="playVideo()"></ion-icon>
-                  <ion-icon src="assets/icon/Stop.svg" (click)="stopVideo()"></ion-icon>
-                </div>
-              </div>
-              <div class="actionbtns">
-                <ion-button mode="md" fill="outline" class="btn" color="primary" (click)="prevClick('education')">Back</ion-button>
-                <ion-button mode="md" class="btn btncolor" (click)="nextClick('extrainfo')">Next</ion-button>
-                
-              </div>
-                
-            </fieldset>
-            <fieldset *ngSwitchCase="currentcard==5">
-              <div style="height: 80%;border: 1px solid;border-radius: 8px;">
-                <!-- <h2 class="fs-title">Extra Info</h2>
-                <h3 class="fs-subtitle">Your presence on the social network</h3> -->
-                <div class="video_container">
-                  <ion-button mode="md" (click)="recordExtraInfoVideo()">Record Video</ion-button>
-                  <div style="height: 85%;margin: 8px;">
-                    <!-- Preview Video -->
-                    <video id="personal-recorded" class="vid_ele" autoplay controls></video>
-                  </div>
-                </div>
-                <div class="action_container">
-                  <ion-icon src="assets/icon/play.svg" (click)="playVideo()"></ion-icon>
-                  <ion-icon src="assets/icon/Stop.svg" (click)="stopVideo()"></ion-icon>
-                </div>
-              </div>
-              <div class="actionbtns">
-                <ion-button mode="md" fill="outline" class="btn"  (click)="prevClick('skill')">Back</ion-button>
-                <ion-button mode="md" class="btn btncolor" (click)="submitClick()">Submit</ion-button>
-                
-              </div>
                
-            </fieldset>
+          
         </div>
-      </div>
-  
-<!-- /.MultiStep Form -->
+        <div class="actionbtns">
+          <ion-button mode="md" class="btn btncolor" (click)="nextClick()">Next</ion-button>
+        </div>
+      </fieldset>
+
+      <fieldset *ngSwitchCase="2">
+        <div style="height: 80%; border: 1px solid; border-radius: 8px;">
+          <div class="video_container">
+            <ion-button mode="md" (click)="recordVideo('personal')">Record Video</ion-button>
+            <div style="height: 85%; margin: 8px;">
+              <!-- Preview Video -->
+              <video id="personal-recorded" class="vid_ele" autoplay controls></video>
+            </div>
+          </div>
+          <div class="action_container">
+            <ion-icon src="assets/icon/play.svg" (click)="playVideo('personal')"></ion-icon>
+            <ion-icon src="assets/icon/Stop.svg" (click)="stopVideo('personal')"></ion-icon>
+          </div>
+        </div>
+        <div class="actionbtns">
+          <ion-button mode="md" fill="outline" class="btn" color="primary" (click)="prevClick()">Back</ion-button>
+          <ion-button mode="md" class="btn btncolor" (click)="nextClick()">Next</ion-button>
+        </div>
+      </fieldset>
+
+      <fieldset *ngSwitchCase="3">
+        <div style="height: 80%; border: 1px solid; border-radius: 8px;">
+          <div class="video_container">
+            <ion-button mode="md" (click)="recordVideo('education')">Record Video</ion-button>
+            <div style="height: 85%; margin: 8px;">
+              <!-- Preview Video -->
+              <video id="education-recorded" class="vid_ele" autoplay controls></video>
+            </div>
+          </div>
+          <div class="action_container">
+            <ion-icon src="assets/icon/play.svg" (click)="playVideo('education')"></ion-icon>
+            <ion-icon src="assets/icon/Stop.svg" (click)="stopVideo('education')"></ion-icon>
+          </div>
+        </div>
+        <div class="actionbtns">
+          <ion-button mode="md" fill="outline" class="btn" color="primary" (click)="prevClick()">Back</ion-button>
+          <ion-button mode="md" class="btn btncolor" (click)="nextClick()">Next</ion-button>
+        </div>
+      </fieldset>
+
+      <fieldset *ngSwitchCase="4">
+        <div style="height: 80%; border: 1px solid; border-radius: 8px;">
+          <div class="video_container">
+            <ion-button mode="md" (click)="recordVideo('skill')">Record Video</ion-button>
+            <div style="height: 85%; margin: 8px;">
+              <!-- Preview Video -->
+              <video id="skill-recorded" class="vid_ele" autoplay controls></video>
+            </div>
+          </div>
+          <div class="action_container">
+            <ion-icon src="assets/icon/play.svg" (click)="playVideo('skill')"></ion-icon>
+            <ion-icon src="assets/icon/Stop.svg" (click)="stopVideo('skill')"></ion-icon>
+          </div>
+        </div>
+        <div class="actionbtns">
+          <ion-button mode="md" fill="outline" class="btn" color="primary" (click)="prevClick()">Back</ion-button>
+          <ion-button mode="md" class="btn btncolor" (click)="nextClick()">Next</ion-button>
+        </div>
+      </fieldset>
+
+      <fieldset *ngSwitchCase="5">
+        <div style="height: 80%; border: 1px solid; border-radius: 8px;">
+          <div class="video_container">
+            <ion-button mode="md" (click)="recordVideo('extra')">Record Video</ion-button>
+            <div style="height: 85%; margin: 8px;">
+              <!-- Preview Video -->
+              <video id="extra-recorded" class="vid_ele" autoplay controls></video>
+            </div>
+          </div>
+          <div class="action_container">
+            <ion-icon src="assets/icon/play.svg" (click)="playVideo('extra')"></ion-icon>
+            <ion-icon src="assets/icon/Stop.svg" (click)="stopVideo('extra')"></ion-icon>
+          </div>
+        </div>
+        <div class="actionbtns">
+          <ion-button mode="md" fill="outline" class="btn" (click)="prevClick()">Back</ion-button>
+          <ion-button mode="md" class="btn btncolor" (click)="submitClick()">Submit</ion-button>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <!-- /.MultiStep Form -->
 </ion-content>
